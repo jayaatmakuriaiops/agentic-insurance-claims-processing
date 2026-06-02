@@ -3,7 +3,7 @@
 *.tfstate
 *.tfstate.*
 *.tfvars
-!terraform.tfvars.example
+!terraform.tfvars
 
 # Crash log files
 crash.log
