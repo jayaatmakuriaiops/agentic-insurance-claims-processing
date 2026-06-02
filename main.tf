@@ -28,12 +28,3 @@ provider "aws" {
   }
 }
 
-module "s3_bucket" {
-  source = "./modules/s3_bucket"
-
-  bucket_name = var.bucket_name
-  environment = var.environment
-  project_name = var.project_name
-
-  versioning_enabled = var.versioning_enabled
-}
