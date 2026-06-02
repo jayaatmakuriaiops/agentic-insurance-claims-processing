@@ -9,9 +9,9 @@ terraform {
   }
 
   cloud {
-    organization = "your-organization-name"
+    organization = "jayaatmakuriaiops"
     workspaces {
-      name = "s3-bucket-workspace"
+      name = "agentic-insurance-claims-processing"
     }
   }
 }

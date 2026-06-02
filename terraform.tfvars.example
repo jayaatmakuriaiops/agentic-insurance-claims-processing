@@ -1,5 +1,5 @@
-aws_region          = "us-east-1"
-bucket_name         = "my-unique-bucket-name"
+aws_region          = "ap-south-2"
+bucket_name         = "jayaatmakuri-terraform-bucket"
 environment         = "dev"
 project_name        = "insurance-claims"
 versioning_enabled  = true
