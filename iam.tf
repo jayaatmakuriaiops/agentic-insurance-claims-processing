@@ -14,9 +14,9 @@ data "aws_iam_policy_document" "cluster_assume_role_policy" {
 }
 
 # Use existing cluster role if it exists
-data "aws_iam_role" "cluster_role" {
-  name = "${local.name}-cluster-role"
-}
+# data "aws_iam_role" "cluster_role" {
+#   name = "${local.name}-cluster-role"
+# }
 
 ###############################################################
 # EKS Node Group Role
@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "node_assume_role_policy" {
 }
 
 # Use existing node role if it exists
-data "aws_iam_role" "node_role" {
-  name = "${local.name}-node-role"
-}
+# data "aws_iam_role" "node_role" {
+#   name = "${local.name}-node-role"
+# }
 
 # Note: EBS CSI Driver role is handled by IRSA module in addons.tf

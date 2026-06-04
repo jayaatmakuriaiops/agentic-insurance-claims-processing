@@ -25,17 +25,19 @@ provider "aws" {
 # Kubernetes Provider Configuration
 ###############################################################
 
-provider "kubernetes" {
-  alias                  = "eks"
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--region", var.region]
-  }
-}
+# Kubernetes provider will be configured after EKS cluster is created
+# Commented out to avoid errors during initial deployment
+# provider "kubernetes" {
+#   alias                  = "eks"
+#   host                   = module.eks.cluster_endpoint
+#   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+#
+#   exec {
+#     api_version = "client.authentication.k8s.io/v1beta1"
+#     command     = "aws"
+#     args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--region", var.region]
+#   }
+# }
 
 ###############################################################
 # Helm Provider Configuration
@@ -48,19 +50,21 @@ provider "helm" {
 # Kubectl Provider Configuration
 ###############################################################
 
-provider "kubectl" {
-  apply_retry_count      = 10
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  load_config_file       = false
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args = [
-      "eks", "get-token",
-      "--cluster-name", module.eks.cluster_name,
-      "--region", var.region
-    ]
-  }
-}
+# Kubectl provider will be configured after EKS cluster is created
+# Commented out to avoid errors during initial deployment
+# provider "kubectl" {
+#   apply_retry_count      = 10
+#   host                   = module.eks.cluster_endpoint
+#   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+#   load_config_file       = false
+#
+#   exec {
+#     api_version = "client.authentication.k8s.io/v1beta1"
+#     command     = "aws"
+#     args = [
+#       "eks", "get-token",
+#       "--cluster-name", module.eks.cluster_name,
+#       "--region", var.region
+#     ]
+#   }
+# }
