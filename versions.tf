@@ -33,11 +33,11 @@ terraform {
   }
 
   #Optional: Configure remote state backend
-  backend "s3" {
-    bucket         = "langgraph-insurance-terraform-state"
-    key            = "infrastructure/terraform.tfstate"
-    region         = "us-west-2"
-    dynamodb_table = "langgraph-insurance-terraform-lock"
-    encrypt        = true
-  }
+  # backend "s3" {
+  #   bucket         = "langgraph-insurance-terraform-state"
+  #   key            = "infrastructure/terraform.tfstate"
+  #   region         = "us-west-2"
+  #   dynamodb_table = "langgraph-insurance-terraform-lock"
+  #   encrypt        = true
+  # }
 }
