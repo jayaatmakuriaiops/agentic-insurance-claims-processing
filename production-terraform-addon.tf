@@ -190,76 +190,77 @@ resource "time_sleep" "wait_for_karpenter" {
 }
 
 # Enhanced Karpenter Node Pool for GPU Workloads
-resource "kubectl_manifest" "karpenter_nodepool_gpu" {
-  depends_on = [
-    time_sleep.wait_for_karpenter
-  ]
-
-  yaml_body = <<-YAML
-    apiVersion: karpenter.sh/v1
-    kind: NodePool
-    metadata:
-      name: gpu-nodepool
-    spec:
-      template:
-        metadata:
-          labels:
-            workload-type: "gpu"
-        spec:
-          requirements:
-            - key: kubernetes.io/arch
-              operator: In
-              values: ["amd64"]
-            - key: karpenter.sh/capacity-type
-              operator: In
-              values: ["on-demand"]
-            - key: node.kubernetes.io/instance-type
-              operator: In
-              values: ["g5.xlarge", "g5.2xlarge", "g5.4xlarge", "g6.xlarge", "g6.2xlarge"]
-          nodeClassRef:
-            group: karpenter.k8s.aws
-            kind: EC2NodeClass
-            name: gpu-nodeclass
-          taints:
-            - key: nvidia.com/gpu
-              value: "true"
-              effect: NoSchedule
-      limits:
-        cpu: 1000
-        memory: 1000Gi
-      disruption:
-        consolidationPolicy: WhenEmpty
-        consolidateAfter: 30s
-  YAML
-}
-
-resource "kubectl_manifest" "karpenter_nodeclass_gpu" {
-  depends_on = [
-    time_sleep.wait_for_karpenter
-  ]
-
-  yaml_body = <<-YAML
-    apiVersion: karpenter.k8s.aws/v1
-    kind: EC2NodeClass
-    metadata:
-      name: gpu-nodeclass
-    spec:
-      amiFamily: Bottlerocket
-      amiSelectorTerms:
-        - alias: bottlerocket@latest
-      role: "${module.eks_blueprints_addons.karpenter.node_iam_role_name}"
-      subnetSelectorTerms:
-        - tags:
-            karpenter.sh/discovery: "${local.cluster_name}"
-            kubernetes.io/role/internal-elb: "1"
-      securityGroupSelectorTerms:
-        - tags:
-            karpenter.sh/discovery: "${local.cluster_name}"
-      tags:
-        Name: "${local.name}-gpu-node"
-        NodeType: "gpu"
-  YAML
-}
+# Commented out until EKS cluster is created and kubectl provider is configured
+# resource "kubectl_manifest" "karpenter_nodepool_gpu" {
+#   depends_on = [
+#     time_sleep.wait_for_karpenter
+#   ]
+#
+#   yaml_body = <<-YAML
+#     apiVersion: karpenter.sh/v1
+#     kind: NodePool
+#     metadata:
+#       name: gpu-nodepool
+#     spec:
+#       template:
+#         metadata:
+#           labels:
+#             workload-type: "gpu"
+#         spec:
+#           requirements:
+#             - key: kubernetes.io/arch
+#               operator: In
+#               values: ["amd64"]
+#             - key: karpenter.sh/capacity-type
+#               operator: In
+#               values: ["on-demand"]
+#             - key: node.kubernetes.io/instance-type
+#               operator: In
+#               values: ["g5.xlarge", "g5.2xlarge", "g5.4xlarge", "g6.xlarge", "g6.2xlarge"]
+#           nodeClassRef:
+#             group: karpenter.k8s.aws
+#             kind: EC2NodeClass
+#             name: gpu-nodeclass
+#           taints:
+#             - key: nvidia.com/gpu
+#               value: "true"
+#               effect: NoSchedule
+#       limits:
+#         cpu: 1000
+#         memory: 1000Gi
+#       disruption:
+#         consolidationPolicy: WhenEmpty
+#         consolidateAfter: 30s
+#   YAML
+# }
+#
+# resource "kubectl_manifest" "karpenter_nodeclass_gpu" {
+#   depends_on = [
+#     time_sleep.wait_for_karpenter
+#   ]
+#
+#   yaml_body = <<-YAML
+#     apiVersion: karpenter.k8s.aws/v1
+#     kind: EC2NodeClass
+#     metadata:
+#       name: gpu-nodeclass
+#     spec:
+#       amiFamily: Bottlerocket
+#       amiSelectorTerms:
+#         - alias: bottlerocket@latest
+#       role: "${module.eks_blueprints_addons.karpenter.node_iam_role_name}"
+#       subnetSelectorTerms:
+#         - tags:
+#             karpenter.sh/discovery: "${local.cluster_name}"
+#             kubernetes.io/role/internal-elb: "1"
+#       securityGroupSelectorTerms:
+#         - tags:
+#             karpenter.sh/discovery: "${local.cluster_name}"
+#       tags:
+#         Name: "${local.name}-gpu-node"
+#         NodeType: "gpu"
+#   YAML
+# }
 
 # Application Load Balancer for Production
 resource "aws_lb" "langgraph_alb" {
