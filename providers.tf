@@ -1,21 +1,3 @@
-terraform {
-  required_version = ">= 1.0"
-  
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-
-  cloud {
-    organization = "jayaatmakuriaiops"
-    workspaces {
-      name = "agentic-insurance-claims-processing"
-    }
-  }
-}
-
 ###############################################################
 # AWS Provider Configuration
 ###############################################################

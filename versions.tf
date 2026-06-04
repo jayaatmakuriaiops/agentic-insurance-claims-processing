@@ -32,6 +32,12 @@ terraform {
     }
   }
 
+  cloud {
+    organization = "jayaatmakuriaiops"
+    workspaces {
+      name = "agentic-insurance-claims-processing"
+    }
+  }
   #Optional: Configure remote state backend
   # backend "s3" {
   #   bucket         = "langgraph-insurance-terraform-state"
