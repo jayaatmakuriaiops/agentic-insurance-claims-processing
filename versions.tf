@@ -14,14 +14,14 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.16, < 3.0"
     }
-    # kubectl = {
-    #   source  = "alekc/kubectl"
-    #   version = ">= 2.1"
-    # }
-    # kubernetes = {
-    #   source  = "hashicorp/kubernetes"
-    #   version = ">= 2.35, < 3.0"
-    # }
+    kubectl = {
+      source  = "alekc/kubectl"
+      version = ">= 2.1"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.35, < 3.0"
+    }
     random = {
       source  = "hashicorp/random"
       version = ">= 3.6"
