@@ -1,17 +1,17 @@
 ##############################################################
-ECR Public Authorization Token
+#ECR Public Authorization Token
 ##############################################################
 
-Commented out until EKS cluster is created
+#Commented out until EKS cluster is created
 data "aws_ecrpublic_authorization_token" "token" {
   provider = aws.virginia
 }
 
 ##############################################################
-IRSA for EBS CSI Driver
+#IRSA for EBS CSI Driver
 ##############################################################
 
-Commented out until EKS cluster is created
+#Commented out until EKS cluster is created
 module "ebs_csi_driver_irsa" {
   source                = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version               = "~> 5.49"
@@ -27,10 +27,10 @@ module "ebs_csi_driver_irsa" {
 }
 
 ##############################################################
-EKS Blueprints Addons
+#EKS Blueprints Addons
 ##############################################################
 
-Commented out until EKS cluster is created
+#Commented out until EKS cluster is created
 module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.20"
@@ -248,10 +248,10 @@ resource "aws_eks_access_entry" "karpenter_nodes" {
   ]
 }
 
----------------------------------------------------------------
-Karpenter Controller Additional IAM Policy
----------------------------------------------------------------
-Commented out until EKS cluster is created
+# ---------------------------------------------------------------
+# Karpenter Controller Additional IAM Policy
+# ---------------------------------------------------------------
+# Commented out until EKS cluster is created
 data "aws_iam_policy_document" "karpenter_controller_policy" {
   statement {
     actions = [
@@ -264,11 +264,11 @@ data "aws_iam_policy_document" "karpenter_controller_policy" {
   }
 }
 
-##############################################################
-NVIDIA Device Plugin for GPU Support
-##############################################################
+# ##############################################################
+# NVIDIA Device Plugin for GPU Support
+# ##############################################################
 
-Commented out until EKS cluster is created and kubectl provider is configured
+# Commented out until EKS cluster is created and kubectl provider is configured
 resource "kubectl_manifest" "nvidia_device_plugin" {
   count = var.enable_nvidia_device_plugin ? 1 : 0
 
@@ -324,11 +324,11 @@ resource "kubectl_manifest" "nvidia_device_plugin" {
   depends_on = [module.eks]
 }
 
-##############################################################
-S3 bucket for Application Logs and Data Storage
-##############################################################
+  # ##############################################################
+  # S3 bucket for Application Logs and Data Storage
+  # ##############################################################
 
-Commented out until EKS cluster is created
+  # Commented out until EKS cluster is created
 module "s3_bucket" {
   count = var.enable_s3_bucket ? 1 : 0
 
@@ -368,11 +368,11 @@ resource "aws_s3_object" "data_storage" {
   content_type = "application/x-directory"
 }
 
-##############################################################
-Grafana Admin Credentials (only if Prometheus/Grafana enabled)
-##############################################################
+# ##############################################################
+# Grafana Admin Credentials (only if Prometheus/Grafana enabled)
+# ##############################################################
 
-Commented out until EKS cluster is created
+# Commented out until EKS cluster is created
 resource "random_password" "grafana" {
   count = var.enable_prometheus_grafana ? 1 : 0
 
