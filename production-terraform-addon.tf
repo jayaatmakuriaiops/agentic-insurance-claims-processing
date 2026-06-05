@@ -181,13 +181,14 @@ resource "aws_security_group" "langgraph_services" {
 }
 
 # Time delay to ensure Karpenter is ready
-resource "time_sleep" "wait_for_karpenter" {
-  depends_on = [
-    module.eks,
-    module.eks_blueprints_addons
-  ]
-  create_duration = "120s"
-}
+# Commented out until EKS cluster is created and eks_blueprints_addons module is uncommented
+# resource "time_sleep" "wait_for_karpenter" {
+#   depends_on = [
+#     module.eks,
+#     module.eks_blueprints_addons
+#   ]
+#   create_duration = "120s"
+# }
 
 # Enhanced Karpenter Node Pool for GPU Workloads
 # Commented out until EKS cluster is created and kubectl provider is configured
