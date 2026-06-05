@@ -183,16 +183,17 @@ module "eks_blueprints_addons" {
   #---------------------------------------
   # External Secrets Operator
   #---------------------------------------
-  enable_external_secrets = true
-  external_secrets = {
-    chart_version = "0.11.0"
-    set = [
-      {
-        name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-        value = module.external_secrets_irsa.iam_role_arn
-      }
-    ]
-  }
+  # Commented out until external_secrets_irsa module is uncommented
+  # enable_external_secrets = true
+  # external_secrets = {
+  #   chart_version = "0.11.0"
+  #   set = [
+  #     {
+  #       name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+  #       value = module.external_secrets_irsa.iam_role_arn
+  #     }
+  #   ]
+  # }
 
   #---------------------------------------
   # CloudWatch metrics for EKS
