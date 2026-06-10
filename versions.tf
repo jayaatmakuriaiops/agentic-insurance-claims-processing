@@ -18,6 +18,10 @@ terraform {
       source  = "hashicorp/time"
       version = ">= 0.12"
     }
+    kubectl = {
+      source  = "alekc/kubectl"
+      version = ">= 2.1.3"
+    }
   }
 
   cloud {
